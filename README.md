@@ -4,4 +4,4 @@ A web-based platform to resolve college related queries of students/users, at an
 from anywhere.
 
 
-//Not able to provide dataset for some personal reason.
+*Not able to provide dataset due to privacy reason.
