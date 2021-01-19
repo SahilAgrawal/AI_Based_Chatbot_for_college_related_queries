@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width" initial-scale=1.0>
+  <link rel="stylesheet" href="./static/css/home.css">
+  <link rel="script" href="./static/js/main.js">
+  <title>Chat Bot</title>
+  <link rel="icon" href="./static/img/icons8-bot-100.png"  style="color: white;" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <nav>
+
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="./about.html">About</a></li>
+      <li>
+        <div>Chatbot Window >></div>
+      </li>
+      <li> <button onclick="chatWindowOpen()">Open</button></li>
+      <li> <button onclick="chatWindowClose()">Close</button></li>
+
+    </ul>
+  </nav>
+
+  <div class="pgContent" >
+    <img src="./static/img/88269fc9-e883-46ac-a72e-90e7c35e251f.png" alt="Not loaded">
+    <h1>Welcome to Support</h1>
+
+  </div>
+
+
+  <div class="center" id="chatWindow" style="display: none;">
+    <div class="chat">
+      <div class="contact bar">
+        <div class="pic stark">
+  
+        </div>
+        <div class="name">
+          Chat Bot
+        </div>
+        <div class="seen"> Online
+        </div>
+      </div>
+
+
+      <div class="messages" id="chat">
+        <div class="message stark" >
+          Hey Geek, How are you... <br>
+          How can I help you..?
+        </div>
+        
+
+        <div class="message stark">
+          <div class="typing typing-1"></div>
+          <div class="typing typing-2"></div>
+          <div class="typing typing-3"></div>
+        </div>
+      </div>
+      <div class="input" id="inputdata">
+        <input id="message-input" placeholder="Type your message here..." type="text" />
+        <button id="send-btn" style="font-size:24px"><i class="fa fa-send-o "></i></button>
+      
+        <!-- <input id="myInput" placeholder="Type your message here..." type="text" /> <button
+          onclick="document.getElementById('myInput').value = 'asfas'" style="font-size:24px"><i
+            class="fa fa-send-o teal-color "></i></button> -->
+
+      </div>
+    </div>
+
+    <script>
+      function chatWindowOpen() {
+        document.getElementById("chatWindow").style.display = "block";
+      }
+
+      function chatWindowClose() {
+        document.getElementById("chatWindow").style.display = "none";
+      }
+
+
+      function getResponse() {
+        let message_container = document.querySelector("messages");
+        let userText = $("#message-input").val();
+        let userHtml = '<div class="message parker">'+userText+'</div>';
+        $("#message-input").val("");
+        $("#chat").append(userHtml);
+        $.get("/get", { msg: userText }).done(function(data) {
+        var botHtml = '<div class="message stark">'+data+'</div>';
+        $("#chat").append(botHtml);
+        document.getElementById('inputdata').scrollIntoView({block: 'start', behavior: 'smooth'});
+      });
+    }
+    $("#message-input").keypress(function(e) {
+      //if enter key is pressed
+          if(e.which == 13) {
+              getResponse();
+          }
+      });
+      $("#send-btn").click(function() {
+          getResponse();
+      });
+
+    
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+Flask==1.1.2
+JSONPickle==1.5.0
+Numpy==1.19.5
+Python==3.5.4
+Tensorflow==1.0
+
